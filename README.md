@@ -1,3 +1,18 @@
+# End-to-End Restaurant Bill Regression with PySpark & Databricks
+
+[![Databricks](https://img.shields.io/badge/Platform-Databricks%20Community-E25A1C?logo=databricks&logoColor=white)](https://community.cloud.databricks.com/)
+[![Apache Spark](https://img.shields.io/badge/Apache%20Spark-3.x-E25A1C?logo=apachespark&logoColor=white)](https://spark.apache.org/)
+[![MLflow](https://img.shields.io/badge/MLflow-Tracking%20Enabled-0194E2?logo=mlflow&logoColor=white)](https://mlflow.org/)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+
+A distributed machine learning pipeline built on **Databricks** using **PySpark MLlib** and **MLflow** to predict restaurant bill totals (`total_bill`) based on customer demographic data and dining party details.
+
+---
+
+## Architecture & Pipeline Design
+
+Rather than executing ad-hoc preprocessing steps, all transformations and the learning algorithm are encapsulated inside an atomic PySpark `PipelineModel` to eliminate data leakage and support batch inference:
+
 ### Key Engineering Practices:
 * **Zero Data Leakage:** The `StringIndexer` and feature transformations are fitted strictly on `train_df` after a controlled 80/20 split.
 * **Out-of-Vocabulary Protection:** Configured `handleInvalid="keep"` on categorical encoders to prevent inference failures on unseen categories.
@@ -51,9 +66,8 @@ The serialized `spark_lr_pipeline_model` directory showing packaged pipeline sta
 ## Project Structure
 
 ```text
-├── assets/
-│   ├── pipeline_execution.png
-│   └── mlflow_artifacts.png
+├── pipeline_execution.png
+├── mlflow_artifacts.png
 ├── notebooks/
-│   └── pyspark_ml_databricks_pipeline.py    # Databricks Git-synced source notebook
+│   └── pyspark_ml_databricks_pipeline.py
 └── README.md
