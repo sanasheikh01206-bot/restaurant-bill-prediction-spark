@@ -11,21 +11,21 @@ A distributed machine learning pipeline built on **Databricks** using **PySpark 
 
 ## Architecture & Pipeline Design
 
-Rather than executing ad-hoc preprocessing steps, all transformations and the learning algorithm are encapsulated inside an atomic PySpark `PipelineModel` to eliminate data leakage and support batch inference:
-
+```text
 [Unity Catalog: tips] ---> [Train/Test Split (80/20)]
-│
-▼
-┌──────────────────────────────────────────┐
-│          Spark MLlib Pipeline            │
-│                                          │
-│  1. StringIndexer (Categorical features) │
-│  2. VectorAssembler (Feature vector)     │
-│  3. LinearRegression (regParam=0.1)      │
-└──────────────────────────────────────────┘
-│
-▼
-[MLflow Tracking] ---> (Metrics, Parameters, Saved Model)
+                                     │
+                                     ▼
+                ┌──────────────────────────────────────────┐
+                │          Spark MLlib Pipeline            │
+                │                                          │
+                │  1. StringIndexer (Categorical features) │
+                │  2. VectorAssembler (Feature vector)     │
+                │  3. LinearRegression (regParam=0.1)      │
+                └──────────────────────────────────────────┘
+                                     │
+                                     ▼
+             [MLflow Tracking] ---> (Metrics, Parameters, Saved Model)
+```
 
 ### Key Engineering Practices:
 * **Zero Data Leakage:** The `StringIndexer` and feature transformations are fitted strictly on `train_df` after a controlled 80/20 split.
