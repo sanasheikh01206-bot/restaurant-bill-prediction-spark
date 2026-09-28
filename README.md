@@ -39,12 +39,12 @@ Evaluation was conducted against an independent hold-out test set using PySpark'
 ### 1. Distributed Pipeline Execution in Databricks
 Execution logs confirming model fitting, evaluation metrics, and the prediction DataFrame output running on active Databricks compute:
 
-**
+![Databricks Execution](assets/pipeline_execution.png)
 
 ### 2. Logged MLflow Model Artifacts
 The serialized `spark_lr_pipeline_model` directory showing packaged pipeline stages, metadata, and environment dependencies:
 
-**
+![MLflow Artifacts](assets/mlflow_artifacts.png)
 
 ---
 
