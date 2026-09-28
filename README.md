@@ -39,12 +39,12 @@ Evaluation was conducted against an independent hold-out test set using PySpark'
 ### 1. Distributed Pipeline Execution in Databricks
 Execution logs confirming model fitting, evaluation metrics, and the prediction DataFrame output running on active Databricks compute:
 
-![Databricks Execution](assets/pipeline_execution.png)
+![Databricks Execution](https://github.com/sanasheikh01206-bot/restaurant-bill-prediction-spark/blob/main/pipeline_execution.png?raw=true)
 
 ### 2. Logged MLflow Model Artifacts
 The serialized `spark_lr_pipeline_model` directory showing packaged pipeline stages, metadata, and environment dependencies:
 
-![MLflow Artifacts](assets/mlflow_artifacts.png)
+![MLflow Artifacts](https://github.com/sanasheikh01206-bot/restaurant-bill-prediction-spark/blob/main/mlflow_artifacts.png?raw=true)
 
 ---
 
