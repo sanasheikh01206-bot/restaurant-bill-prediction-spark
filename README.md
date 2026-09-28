@@ -13,6 +13,20 @@ A distributed machine learning pipeline built on **Databricks** using **PySpark 
 
 Rather than executing ad-hoc preprocessing steps, all transformations and the learning algorithm are encapsulated inside an atomic PySpark `PipelineModel` to eliminate data leakage and support batch inference:
 
+[Unity Catalog: tips] ---> [Train/Test Split (80/20)]
+│
+▼
+┌──────────────────────────────────────────┐
+│          Spark MLlib Pipeline            │
+│                                          │
+│  1. StringIndexer (Categorical features) │
+│  2. VectorAssembler (Feature vector)     │
+│  3. LinearRegression (regParam=0.1)      │
+└──────────────────────────────────────────┘
+│
+▼
+[MLflow Tracking] ---> (Metrics, Parameters, Saved Model)
+
 ### Key Engineering Practices:
 * **Zero Data Leakage:** The `StringIndexer` and feature transformations are fitted strictly on `train_df` after a controlled 80/20 split.
 * **Out-of-Vocabulary Protection:** Configured `handleInvalid="keep"` on categorical encoders to prevent inference failures on unseen categories.
@@ -54,12 +68,12 @@ Evaluation was conducted against an independent hold-out test set using PySpark'
 ### 1. Distributed Pipeline Execution in Databricks
 Execution logs confirming model fitting, evaluation metrics, and the prediction DataFrame output running on active Databricks compute:
 
-![Databricks Execution](https://github.com/sanasheikh01206-bot/restaurant-bill-prediction-spark/blob/main/pipeline_execution.png?raw=true)
+![Databricks Execution](pipeline_execution.png)
 
 ### 2. Logged MLflow Model Artifacts
 The serialized `spark_lr_pipeline_model` directory showing packaged pipeline stages, metadata, and environment dependencies:
 
-![MLflow Artifacts](https://github.com/sanasheikh01206-bot/restaurant-bill-prediction-spark/blob/main/mlflow_artifacts.png?raw=true)
+![MLflow Artifacts](mlflow_artifacts.png)
 
 ---
 
